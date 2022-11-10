@@ -28,6 +28,21 @@ struct ASTNode{
 ASTNode* CreateNumNode(int num);
 ASTNode* CreateIdentNode(char* name);
 ASTNode* CreateStatementListNode(ASTNode* st, ASTNode* stList);
+ASTNode* CreateAssignNode(int num, ASTNode expr);
+ASTNode* CreateAddNode(ASTNode expr, ASTNode term);
+ASTNode* CreateSubNode(ASTNode expr, ASTNode term);
+ASTNode* CreateMultNode(ASTNode term, ASTNode factor);
+ASTNode* CreateDivNode(ASTNode term, ASTNode factor);
+ASTNode* CreateIfNode(ASTNode* cond, ASTNode* stList);
+ASTNode* CreateIfElseNode(ASTNode* cond, ASTNode* stList, ASTNode* stList2);
+ASTNode* CreateCompareListNode(ASTNode* cond, ASTNode* condList);
+ASTNode* CreateANDNode(ASTNode* cond, ASTNode* condList);
+ASTNode* CreateORNode(ASTNode* cond, ASTNode* condList);
+ASTNode* CreateCompareNode(ASTNode* expr, char* cond, ASTNode* expr2);
+ASTNode* CreateWhileNode(ASTNode* cond, ASTNode* stList);
+
+
+
 
 // Need a function to add a declaration to your symbol table
 void AddDeclaration(char* name);

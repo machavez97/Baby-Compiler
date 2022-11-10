@@ -53,6 +53,9 @@
 %type <node> If
 %type <node> While
 %type <node> Condition
+%type <node> Compare
+%type <node> CompareList
+%type <node> LHS
 
 %%
 
@@ -81,11 +84,44 @@ Statement: Assignment	{$$ = $1;}
 			| While	{$$ = $1;}
 ;
 
-Assignment: IDENT '=' Expr	{$$ = CreateAssignNode($1, $3); printf ("Creating Assign node for %s\n", $1);}
+Assignment: LHS '=' Expr	{$$ = CreateAssignNode($1, $3); printf ("Creating left-hand IDENT node for %s\n", $1);}
 ;
 
+LHS: IDENT {$$ = $1;}
+;
+
+Expr: Term {$$ = $1;}
+		| Expr '+' Term {$$ = CreateAddNode($1, $3); printf ("Creating Addition node\n");}
+		| Expr '-' Term {$$ = CreateSubNode($1, $3); printf ("Creating Subtraction node\n");}
+;
+
+Term: Factor {$$ = $1;}
+		| Term '*' Factor {$$ = CreateMultNode($1, $3); printf ("Creating Multiplication node\n");}
+		| Term '/' Factor {$$ = CreateDivNode($1, $3); printf ("Creating Division node\n");}
+
+
+
+
 If: "if"'('Condition')' StatementList {$$ = CreateIfNode($3, $5); printf ("Creating If node for %s\n", $6);}
-	| "if"'('Condition')' StatementList "else" StatementList {$$ = CreateIfElseNode($3, $5, $11); printf ("Creating If node for %s or %s\n", $6 $6);}
+	| "if"'('Condition')' StatementList "else" StatementList {$$ = CreateIfElseNode($3, $5, $7); printf ("Creating If node for %s or %s\n", $6 $6);}
+;
+
+Condition: Compare CompareList {$$ = CreateCompareListNode($1, $2);}
+
+CompareList: {$$ = NULL;}
+			| "&&" Compare CompareList {$$ = CreateANDNode($1, $3); printf ("Creating AND node\n");} //NEEDS HIGHER PRECEDENCE
+			| "||" Compare CompareList {$$ = CreateORNode($1, $3); printf ("Creating OR node\n");}
+;
+
+Compare: Expr "==" Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+		| Expr "!=" Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+		| Expr '>' Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+		| Expr '<' Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+		| Expr "<=" Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+		| Expr ">=" Expr {$$ = CreateCompareNode($1, $2, $3); printf ("Creating Compare node\n");}
+;
+
+While: "while" '('Condition')' '{'StatementList'}' {$$ = CreateWhileNode($3, $6); printf ("Creating while loop node\n");}
 ;
 
 
