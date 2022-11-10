@@ -28,17 +28,24 @@ struct ASTNode{
 ASTNode* CreateNumNode(int num);
 ASTNode* CreateIdentNode(char* name);
 ASTNode* CreateStatementListNode(ASTNode* st, ASTNode* stList);
-ASTNode* CreateAssignNode(int num, ASTNode expr);
-ASTNode* CreateAddNode(ASTNode expr, ASTNode term);
-ASTNode* CreateSubNode(ASTNode expr, ASTNode term);
-ASTNode* CreateMultNode(ASTNode term, ASTNode factor);
-ASTNode* CreateDivNode(ASTNode term, ASTNode factor);
+ASTNode* CreateAssignNode(ASTNode* lhs, ASTNode* expr);
+ASTNode* CreateAddNode(ASTNode* expr, ASTNode* term);
+ASTNode* CreateSubNode(ASTNode* expr, ASTNode* term);
+ASTNode* CreateMultNode(ASTNode* term, ASTNode* factor);
+ASTNode* CreateDivNode(ASTNode* term, ASTNode* factor);
 ASTNode* CreateIfNode(ASTNode* cond, ASTNode* stList);
 ASTNode* CreateIfElseNode(ASTNode* cond, ASTNode* stList, ASTNode* stList2);
 ASTNode* CreateCompareListNode(ASTNode* cond, ASTNode* condList);
 ASTNode* CreateANDNode(ASTNode* cond, ASTNode* condList);
 ASTNode* CreateORNode(ASTNode* cond, ASTNode* condList);
-ASTNode* CreateCompareNode(ASTNode* expr, char* cond, ASTNode* expr2);
+ASTNode* CreateEqualNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateNotEqualNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateGreaterNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateLessNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateGreaterEqualNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateLessEqualNode(ASTNode* expr, ASTNode* expr2);
+ASTNode* CreateLHSNode(char* name);
+
 ASTNode* CreateWhileNode(ASTNode* cond, ASTNode* stList);
 
 

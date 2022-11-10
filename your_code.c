@@ -16,6 +16,10 @@ ASTNode* CreateNumNode(int num)
 
 ASTNode* CreateIdentNode(char* name)
 {
+        ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+        node->type = ASTNODE_IDENT; 
+        node->name = name;
+        return node;
 
 
 }

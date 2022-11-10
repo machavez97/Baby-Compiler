@@ -4,6 +4,7 @@
 #include "BabyC.tab.h"
 #include "your_code.h"
 
+
 void yyerror (const char *s) 
 {
    printf("ERROR on line %d: %s.\n", yylineno, s);
@@ -47,8 +48,15 @@ void yyerror (const char *s)
 "else" return ELSE;
 "while" return WHILE;
 
-        yylval.string = strdup(yytext); return IDENT; // This is the action for IDENT. Write the regular expression before the action.
+
+[_|[a-zA-Z]][_|[a-zA-Z]|[0-9]]* {
+        yylval.string = strdup(yytext); 
+        return IDENT; // This is the action for IDENT. Write the regular expression before the action.
+         }
+
+[[0|[1-9]][0-9]*] {
     	yylval.num = atoi(yytext); return NUM; // This is the action for NUM. Write the regular expression before the action.
+        }
 
 [ \t\n]+		//Whitespace is ignored
 .           printf( "ERROR on Line %d: Unrecognized token \n", yylineno ); exit(1); //No match. Fatal error.
