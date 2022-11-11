@@ -49,6 +49,8 @@
 %type <node> Term
 %type <node> Factor
 %type <node> StatementList
+%type <node> DeclarationList
+%type <node> Declaration
 // Add the rest of the types for the grammar's symbols
 %type <node> If
 %type <node> While
@@ -64,7 +66,8 @@
 Goal: "main" '(' ')' '{' DeclarationList StatementList '}'	{gASTRoot=$6;} // Store the AST root node in gASTRoot
 ;
 
-DeclarationList:  | Declaration DeclarationList // Note that a DeclarationList may be empty
+DeclarationList:  {$$ = NULL;}
+				| Declaration DeclarationList {$$ = CreateDeclarationListNode($1, $2);}// Note that a DeclarationList may be empty
 ;
 
 Declaration: "int" IDENT ';' {AddDeclaration($2); printf("Processing declaration of %s\n", $2);}
@@ -84,7 +87,7 @@ Statement: Assignment	{$$ = $1;}
 			| While	{$$ = $1;}
 ;
 
-Assignment: LHS '=' Expr {$$ = CreateAssignNode($1, $3);}
+Assignment: LHS '=' Expr {$$ = CreateAssignNode($1, $3); printf("Creating assignment node\n");}
 ;
 
 LHS: IDENT {$$ = CreateIdentNode($1); printf ("Creating left-hand IDENT node for %s\n", $1);}

@@ -49,12 +49,12 @@ void yyerror (const char *s)
 "while" return WHILE;
 
 
-[_|[a-zA-Z]][_|[a-zA-Z]|[0-9]]* {
+([a-z]|[A-Z])([a-z]|[A-Z]|[0-9])* {
         yylval.string = strdup(yytext); 
         return IDENT; // This is the action for IDENT. Write the regular expression before the action.
          }
 
-[[0|[1-9]][0-9]*] {
+([1-9][0-9]*)|[0] {
     	yylval.num = atoi(yytext); return NUM; // This is the action for NUM. Write the regular expression before the action.
         }
 

@@ -453,10 +453,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    64,    64,    67,    67,    70,    73,    74,    75,    78,
-      79,    82,    83,    84,    87,    90,    93,    94,    95,    98,
-      99,   100,   105,   106,   109,   111,   112,   113,   116,   117,
-     118,   119,   120,   121,   124
+       0,    66,    66,    69,    70,    73,    76,    77,    78,    81,
+      82,    85,    86,    87,    90,    93,    96,    97,    98,   101,
+     102,   103,   108,   109,   112,   114,   115,   116,   119,   120,
+     121,   122,   123,   124,   127
 };
 #endif
 
@@ -1409,163 +1409,173 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 64 "BabyC.y"
+#line 66 "BabyC.y"
     {gASTRoot=(yyvsp[(6) - (7)].node);;}
     break;
 
-  case 5:
+  case 3:
+#line 69 "BabyC.y"
+    {(yyval.node) = NULL;;}
+    break;
+
+  case 4:
 #line 70 "BabyC.y"
+    {(yyval.node) = CreateDeclarationListNode((yyvsp[(1) - (2)].node), (yyvsp[(2) - (2)].node));;}
+    break;
+
+  case 5:
+#line 73 "BabyC.y"
     {AddDeclaration((yyvsp[(2) - (3)].string)); printf("Processing declaration of %s\n", (yyvsp[(2) - (3)].string));;}
     break;
 
   case 6:
-#line 73 "BabyC.y"
+#line 76 "BabyC.y"
     {(yyval.node) = CreateIdentNode((yyvsp[(1) - (1)].string)); printf("Creating IDENT node for %s\n", (yyvsp[(1) - (1)].string));;}
     break;
 
   case 7:
-#line 74 "BabyC.y"
+#line 77 "BabyC.y"
     {(yyval.node) = CreateNumNode((yyvsp[(1) - (1)].num)); printf("Creating NUM node for %d\n", (yyvsp[(1) - (1)].num));;}
     break;
 
   case 8:
-#line 75 "BabyC.y"
+#line 78 "BabyC.y"
     {(yyval.node) = (yyvsp[(2) - (3)].node);;}
     break;
 
   case 9:
-#line 78 "BabyC.y"
+#line 81 "BabyC.y"
     {(yyval.node) = NULL;;}
     break;
 
   case 10:
-#line 79 "BabyC.y"
+#line 82 "BabyC.y"
     {(yyval.node) = CreateStatementListNode((yyvsp[(1) - (2)].node),(yyvsp[(2) - (2)].node)); printf("Adding a statement to a statement list \n");;}
     break;
 
   case 11:
-#line 82 "BabyC.y"
+#line 85 "BabyC.y"
     {(yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 12:
-#line 83 "BabyC.y"
+#line 86 "BabyC.y"
     {(yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 13:
-#line 84 "BabyC.y"
+#line 87 "BabyC.y"
     {(yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 14:
-#line 87 "BabyC.y"
-    {(yyval.node) = CreateAssignNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));;}
+#line 90 "BabyC.y"
+    {(yyval.node) = CreateAssignNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf("Creating assignment node\n");;}
     break;
 
   case 15:
-#line 90 "BabyC.y"
+#line 93 "BabyC.y"
     {(yyval.node) = CreateIdentNode((yyvsp[(1) - (1)].string)); printf ("Creating left-hand IDENT node for %s\n", (yyvsp[(1) - (1)].string));;}
     break;
 
   case 16:
-#line 93 "BabyC.y"
+#line 96 "BabyC.y"
     {(yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 17:
-#line 94 "BabyC.y"
+#line 97 "BabyC.y"
     {(yyval.node) = CreateAddNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Addition node\n");;}
     break;
 
   case 18:
-#line 95 "BabyC.y"
+#line 98 "BabyC.y"
     {(yyval.node) = CreateSubNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Subtraction node\n");;}
     break;
 
   case 19:
-#line 98 "BabyC.y"
+#line 101 "BabyC.y"
     {(yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 20:
-#line 99 "BabyC.y"
+#line 102 "BabyC.y"
     {(yyval.node) = CreateMultNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Multiplication node\n");;}
     break;
 
   case 21:
-#line 100 "BabyC.y"
+#line 103 "BabyC.y"
     {(yyval.node) = CreateDivNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Division node\n");;}
     break;
 
   case 22:
-#line 105 "BabyC.y"
+#line 108 "BabyC.y"
     {(yyval.node) = CreateIfNode((yyvsp[(3) - (5)].node), (yyvsp[(5) - (5)].node)); printf ("Creating if statement node\n");;}
     break;
 
   case 23:
-#line 106 "BabyC.y"
+#line 109 "BabyC.y"
     {(yyval.node) = CreateIfElseNode((yyvsp[(3) - (7)].node), (yyvsp[(5) - (7)].node), (yyvsp[(7) - (7)].node)); printf ("Creating if statement node\n");;}
     break;
 
   case 24:
-#line 109 "BabyC.y"
+#line 112 "BabyC.y"
     {(yyval.node) = CreateCompareListNode((yyvsp[(1) - (2)].node), (yyvsp[(2) - (2)].node));;}
     break;
 
   case 25:
-#line 111 "BabyC.y"
+#line 114 "BabyC.y"
     {(yyval.node) = NULL;;}
     break;
 
   case 26:
-#line 112 "BabyC.y"
+#line 115 "BabyC.y"
     {(yyval.node) = CreateANDNode((yyvsp[(2) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating AND node\n");;}
     break;
 
   case 27:
-#line 113 "BabyC.y"
+#line 116 "BabyC.y"
     {(yyval.node) = CreateORNode((yyvsp[(2) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating OR node\n");;}
     break;
 
   case 28:
-#line 116 "BabyC.y"
+#line 119 "BabyC.y"
     {(yyval.node) = CreateEqualNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 29:
-#line 117 "BabyC.y"
+#line 120 "BabyC.y"
     {(yyval.node) = CreateNotEqualNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 30:
-#line 118 "BabyC.y"
+#line 121 "BabyC.y"
     {(yyval.node) = CreateGreaterNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 31:
-#line 119 "BabyC.y"
+#line 122 "BabyC.y"
     {(yyval.node) = CreateLessNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 32:
-#line 120 "BabyC.y"
+#line 123 "BabyC.y"
     {(yyval.node) = CreateLessEqualNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 33:
-#line 121 "BabyC.y"
+#line 124 "BabyC.y"
     {(yyval.node) = CreateGreaterEqualNode((yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); printf ("Creating Compare node\n");;}
     break;
 
   case 34:
-#line 124 "BabyC.y"
+#line 127 "BabyC.y"
     {(yyval.node) = CreateWhileNode((yyvsp[(3) - (7)].node), (yyvsp[(6) - (7)].node)); printf ("Creating while loop node\n");;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1569 "BabyC.tab.c"
+#line 1579 "BabyC.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1779,6 +1789,6 @@ yyreturn:
 }
 
 
-#line 128 "BabyC.y"
+#line 131 "BabyC.y"
 
 

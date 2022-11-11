@@ -18,9 +18,20 @@ ASTNode* CreateNumNode(int num)
 
 ASTNode* CreateIdentNode(char* name)
 {
+        struct Symbol *names = (struct Symbol*) malloc(sizeof(struct Symbol));
+	names = Search(name);
+	
+	if(names == NULL) {
+		 printf("Ident not declared");
+		exit(1);
+	}
+
         ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
         node->type = ASTNODE_IDENT; 
         node->name = name;
+        if(names != NULL){
+                node->name = names->name;
+        }
         return node;
 }
 
@@ -33,6 +44,14 @@ ASTNode* CreateStatementListNode(ASTNode* st, ASTNode* stList)
         stList->next = st;
         return stList;
 
+}
+
+ASTNode* CreateDeclarationListNode(ASTNode* dc, ASTNode* dcList) {
+	ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+	node->type = ASTNODE_DECLARATION_LIST;
+	node->left = dc;
+	node->right = dcList;
+	return node;
 }
 
 ASTNode* CreateAssignNode(ASTNode* lhs, ASTNode* expr)
@@ -194,58 +213,7 @@ ASTNode* CreateWhileNode(ASTNode* cond, ASTNode* stList)
         node->right = stList;
         return node;
 }
-typedef struct hashTable
-{
-        char* ident;
-        struct hashTable* next;
-}
-hashTable;
-hashTable* symbolTable[50] = {NULL};
-int hash(const char* ident)
-{
-        return tolower(ident[0] - 'a');
-}
 
-
-
-
-
-
-void insert (int key, const char* name)
-{
-        hashTable* newHash = malloc(sizeof(hashTable));
-        if (newHash == NULL)
-        {
-                return;
-        }
-        strcpy(newHash->ident, name);
-        newHash->next = NULL;
-
-        if (symbolTable[key] == NULL)
-        {
-                symbolTable[key] = newHash;
-        }
-        else 
-        {
-                hashTable* predHash = symbolTable[key];
-                while (1)
-                {
-                        if (predHash->next == NULL)
-                        {
-                                predHash->next = newHash;
-                                break;
-                        }
-                        predHash = predHash->next;
-                }
-        }
-        
-}
-void AddDeclaration(char* name)
-{
-        int value = hash(name);
-        insert(value, name);
-
-}
 
 
 // Commented out in this assignment 
@@ -253,4 +221,74 @@ void AddDeclaration(char* name)
 {
 
 }*/
+int offset = 0;
 
+
+
+void AddDeclaration(char* name) {
+	struct Symbol *symbols = (struct Symbol*) malloc(sizeof(struct Symbol));
+	symbols = Search(name);
+	if(symbols != NULL) {
+		char error[(strlen("Multiple declarations of ") + strlen(name) + 2)];
+		strcpy(error, "Multiple declarations of ");
+	} else {
+		Insert(name);
+	}
+}
+
+int Index(char *name) {
+	int currPlace = 0;
+	int key = 0;
+	while(currPlace < strlen(name)) {
+		key += (name[currPlace] - '0');
+                currPlace++;
+	}
+	int index = key % 100;
+	return index;
+}
+
+void Insert(char *name){
+	struct Symbol *ident = (struct Symbol*) malloc(sizeof(struct Symbol));
+	ident->name = name;
+	ident->offset = NextOffset();
+	int index = Index(name);
+	while(table[index] != NULL) {
+		++index;
+		index %= 100;
+	}
+	table[index] = ident;
+}
+
+
+
+struct Symbol *Search(char* name) {
+	int index;
+        int i;
+	for(index = Index(name); table[index] != NULL; index++) {
+		if(strcmp(table[index]->name, name) == 0) 
+                {
+                        return table[index];
+                        printf("found\n");
+
+                }
+		index %= 100;
+	}
+	return NULL;
+}
+
+char *SearchOffset(char* name) {
+	int index;
+	for(index = Index(name); table[index] != NULL; index++) {
+		if(0 == strcmp(table[index]->name, name)) 
+                        {return table[index]->offset;}
+		index %= 100;
+	}
+	return NULL;
+}
+
+char *NextOffset(){
+	char *nextOffset = malloc(sizeof(char) * 5);
+	sprintf(nextOffset, "%d", offset);
+	offset += 4;
+	return nextOffset;
+}
