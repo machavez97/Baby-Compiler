@@ -87,7 +87,7 @@ Statement: Assignment	{$$ = $1;}
 Assignment: LHS '=' Expr {$$ = CreateAssignNode($1, $3);}
 ;
 
-LHS: IDENT {$$ = CreateLHSNode($1); printf ("Creating left-hand IDENT node for %s\n", $1);}
+LHS: IDENT {$$ = CreateIdentNode($1); printf ("Creating left-hand IDENT node for %s\n", $1);}
 ;
 
 Expr: Term {$$ = $1;}

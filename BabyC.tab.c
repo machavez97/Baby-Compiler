@@ -1465,7 +1465,7 @@ yyreduce:
 
   case 15:
 #line 90 "BabyC.y"
-    {(yyval.node) = CreateLHSNode((yyvsp[(1) - (1)].string)); printf ("Creating left-hand IDENT node for %s\n", (yyvsp[(1) - (1)].string));;}
+    {(yyval.node) = CreateIdentNode((yyvsp[(1) - (1)].string)); printf ("Creating left-hand IDENT node for %s\n", (yyvsp[(1) - (1)].string));;}
     break;
 
   case 16:
