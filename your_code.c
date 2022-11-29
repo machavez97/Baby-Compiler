@@ -22,7 +22,7 @@ ASTNode* CreateIdentNode(char* name)
 	names = Search(name);
 	
 	if(names == NULL) {
-		 printf("Ident not declared");
+		yyerror("Ident not declared.\n");
 		exit(1);
 	}
 
@@ -41,8 +41,11 @@ ASTNode* CreateIdentNode(char* name)
 // Return a pointer to the bigger list that resulted from this linking
 ASTNode* CreateStatementListNode(ASTNode* st, ASTNode* stList)
 {
-        stList->next = st;
-        return stList;
+        ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+        node->type = ASTNODE_STATEMENT_LIST;
+        node->left = st;
+        node->next = stList;
+        return node;
 
 }
 
@@ -268,7 +271,7 @@ struct Symbol *Search(char* name) {
 		if(strcmp(table[index]->name, name) == 0) 
                 {
                         return table[index];
-                        printf("found\n");
+                        printf("found\n"); //This is not being hit
 
                 }
 		index %= 100;

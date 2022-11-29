@@ -3,7 +3,7 @@
 	#include "your_code.h"
 
 // The parser needs to call the scanner to get the next token 
-	extern int yylex();
+	extern int yylex(void);
 
 // The error function 
 	extern int yyerror(const char *);
@@ -75,7 +75,7 @@ Declaration: "int" IDENT ';' {AddDeclaration($2); printf("Processing declaration
 
 Factor: IDENT 		{$$ = CreateIdentNode($1); printf("Creating IDENT node for %s\n", $1);}
 	| NUM 		{$$ = CreateNumNode($1); printf("Creating NUM node for %d\n", $1);}
-	| '('Expr')'	{$$ = $2;}
+	| '('Expr')'	{$$ = $2; printf("Creating Expression node in parantheses\n");}
 ;
 
 StatementList: {$$ = NULL;} 
@@ -87,7 +87,7 @@ Statement: Assignment	{$$ = $1;}
 			| While	{$$ = $1;}
 ;
 
-Assignment: LHS '=' Expr {$$ = CreateAssignNode($1, $3); printf("Creating assignment node\n");}
+Assignment: LHS '=' Expr ';' {$$ = CreateAssignNode($1, $3); printf("Creating Assignment node\n");}
 ;
 
 LHS: IDENT {$$ = CreateIdentNode($1); printf ("Creating left-hand IDENT node for %s\n", $1);}

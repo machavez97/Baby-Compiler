@@ -1,7 +1,7 @@
 #ifndef YOUR_CODE_H
 #define YOUR_CODE_H
 
-typedef enum{ASTNODE_ARITH_OP, ASTNODE_LOGIC_OP, ASTNODE_COMPARE, ASTNODE_ASSIGN, ASTNODE_IDENT, ASTNODE_NUM, ASTNODE_IF, ASTNODE_WHILE, ASTNODE_DECLARATION_LIST} ASTNodeType;
+typedef enum{ASTNODE_ARITH_OP, ASTNODE_LOGIC_OP, ASTNODE_COMPARE, ASTNODE_ASSIGN, ASTNODE_IDENT, ASTNODE_NUM, ASTNODE_IF, ASTNODE_WHILE, ASTNODE_DECLARATION_LIST, ASTNODE_STATEMENT_LIST} ASTNodeType;
 
 // Define all operation types (add, mult, etc) here.
 typedef enum{ADD_OP, MULT_OP, SUB_OP, DIV_OP} ASTOp; 
@@ -64,9 +64,8 @@ struct Symbol{
 
 
 struct Symbol* table[100];
-
-void Insert(char *name);
 struct Symbol *Search(char *name);
+void Insert(char *name);
 int Index(char * name);
 char *NextOffset();
 #endif
